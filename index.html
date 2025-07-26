@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" class="transition duration-300">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PathPilot - Navigate Your Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+    <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" /> -->
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      .typing::after {
+        content: "|";
+        animation: blink 1s infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-100 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 font-sans transition duration-300"
+    id="body"
+  >
+    <!-- Dark Mode Toggle -->
+    <div class="fixed top-4 right-4 z-50">
+      <button
+        onclick="toggleDarkMode()"
+        class="flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-full shadow-md hover:bg-gray-800 transition"
+        title="Toggle Dark Mode"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 3v1m0 16v1m8.66-13.34l-.707.707M4.05 19.95l-.707-.707M21 12h-1M4 12H3m16.24 4.24l-.707.707M6.34 6.34l-.707-.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+          />
+        </svg>
+        Dark Mode
+      </button>
+    </div>
+
+    <!-- Navbar -->
+    <nav
+      class="bg-white/80 dark:bg-gray-800 backdrop-blur shadow-md fixed w-full z-40"
+    >
+      <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <h1
+          class="text-2xl font-bold text-blue-600 dark:text-white tracking-wide"
+        >
+          PathPilot
+        </h1>
+        <ul
+          class="flex space-x-6 text-sm font-medium text-gray-700 dark:text-gray-200"
+        >
+          <li>
+            <a
+              href="#form"
+              class="hover:text-blue-600 dark:hover:text-yellow-400"
+              >Start</a
+            >
+          </li>
+          <li>
+            <a
+              href="#faq"
+              class="hover:text-blue-600 dark:hover:text-yellow-400"
+              >FAQ</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="hover:text-blue-600 dark:hover:text-yellow-400"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="pt-28 pb-20 text-center bg-gradient-to-r from-blue-200 to-sky-300 dark:from-gray-800 dark:to-gray-700"
+    >
+      <h2
+        class="text-4xl md:text-5xl font-extrabold text-blue-900 dark:text-white mb-3"
+      >
+        Navigate Your Future
+      </h2>
+      <p
+        class="text-xl md:text-2xl text-gray-700 dark:text-gray-200 max-w-xl mx-auto typing"
+      >
+        Just enter your favorite subjects…
+      </p>
+    </section>
+
+    <!-- Form Section -->
+    <section id="form" class="container mx-auto px-6 py-12">
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl"
+        data-aos="zoom-in"
+      >
+        <h3 class="text-2xl font-semibold mb-4">Enter Subjects</h3>
+        <div class="flex flex-col md:flex-row gap-4">
+          <input
+            id="subjectInput"
+            type="text"
+            placeholder="e.g. Math, Psychology, CS"
+            class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          />
+          <button
+            onclick="suggestCareers()"
+            class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+          >
+            Suggest
+          </button>
+        </div>
+        <div
+          id="results"
+          class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        ></div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="bg-gray-50 dark:bg-gray-900 py-12 px-6">
+      <div class="container mx-auto" data-aos="fade-up">
+        <h3 class="text-3xl font-bold mb-6 text-center">FAQs</h3>
+        <div class="space-y-4 max-w-3xl mx-auto">
+          <details class="bg-white dark:bg-gray-800 shadow-md rounded p-4">
+            <summary class="font-medium cursor-pointer">
+              How does this work?
+            </summary>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">
+              We match your entered subjects with curated career options using a
+              predefined dataset.
+            </p>
+          </details>
+          <details class="bg-white dark:bg-gray-800 shadow-md rounded p-4">
+            <summary class="font-medium cursor-pointer">
+              Can I enter multiple subjects?
+            </summary>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">
+              Yes, separate them with commas: Math, English, CS.
+            </p>
+          </details>
+          <details class="bg-white dark:bg-gray-800 shadow-md rounded p-4">
+            <summary class="font-medium cursor-pointer">
+              Can I suggest careers to add?
+            </summary>
+            <p class="mt-2 text-gray-600 dark:text-gray-300">
+              Yes! Use the contact form below to suggest new subjects or
+              improvements.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container mx-auto px-6 py-12">
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg"
+        data-aos="fade-up"
+      >
+        <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            placeholder="Name"
+            class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <textarea
+            placeholder="Your Message"
+            rows="4"
+            class="md:col-span-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:border-gray-600"
+          ></textarea>
+          <button
+            class="md:col-span-2 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+          >
+            Send
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Scroll to Top -->
+    <button
+      onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+      class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow hover:bg-blue-700 z-50"
+    >
+      ↑
+    </button>
+
+    <!-- Footer -->
+    <footer
+      class="bg-blue-800 dark:bg-gray-900 text-white text-center py-6 mt-10"
+    >
+      <p class="text-sm">
+        &copy; 2025 PathPilot | Built with 💙 using Tailwind CSS
+      </p>
+      <div class="mt-2 flex justify-center space-x-4">
+        <a href="#" class="hover:text-yellow-300">Twitter</a>
+        <a href="#" class="hover:text-yellow-300">GitHub</a>
+        <a href="#" class="hover:text-yellow-300">LinkedIn</a>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+
+      function toggleDarkMode() {
+        document.documentElement.classList.toggle("dark");
+      }
+
+      const data = {
+        physics: ["Astrophysicist", "Engineer", "Research Scientist"],
+        chemistry: ["Pharmacist", "Chemical Engineer", "Toxicologist"],
+        biology: [
+          "Doctor",
+          "Geneticist",
+          "Zoologist",
+          "Microbiologist",
+          "Marine Biologist",
+        ],
+        "computer science": [
+          "Software Developer",
+          "AI Engineer",
+          "Cybersecurity Analyst",
+          "Full Stack Developer",
+          "Cloud Architect",
+          "DevOps Engineer",
+          "Data Engineer",
+          "Embedded Systems Developer",
+        ],
+        cybersecurity: [
+          "Ethical Hacker",
+          "Security Analyst",
+          "Penetration Tester",
+          "SOC Analyst",
+          "Cybersecurity Consultant",
+          "Incident Responder",
+          "Security Architect",
+        ],
+        dbms: [
+          "Database Administrator",
+          "Data Engineer",
+          "SQL Developer",
+          "Big Data Analyst",
+          "ETL Developer",
+        ],
+        os: [
+          "System Programmer",
+          "Linux Administrator",
+          "Kernel Developer",
+          "Embedded OS Developer",
+          "Cloud Infrastructure Engineer",
+        ],
+        cn: [
+          "Network Engineer",
+          "Network Security Analyst",
+          "Cloud Network Specialist",
+          "VoIP Engineer",
+          "Wireless Network Architect",
+        ],
+        uiux: [
+          "UI Designer",
+          "UX Researcher",
+          "Interaction Designer",
+          "Design System Architect",
+          "Product Designer",
+        ],
+        math: [
+          "Statistician",
+          "Data Scientist",
+          "Actuary",
+          "Quantitative Analyst",
+          "Mathematics Professor",
+        ],
+        economics: [
+          "Economist",
+          "Market Analyst",
+          "Financial Planner",
+          "Investment Banker",
+          "Policy Analyst",
+        ],
+        english: [
+          "Teacher",
+          "Copywriter",
+          "Author",
+          "Content Strategist",
+          "Public Relations Officer",
+        ],
+        history: [
+          "Historian",
+          "Archaeologist",
+          "Archivist",
+          "Museum Curator",
+          "Historian Researcher",
+        ],
+        geography: [
+          "Geologist",
+          "GIS Specialist",
+          "Urban Planner",
+          "Environmental Consultant",
+          "Cartographer",
+        ],
+        art: [
+          "Graphic Designer",
+          "Illustrator",
+          "Animator",
+          "Art Director",
+          "Visual Artist",
+        ],
+        commerce: [
+          "Chartered Accountant",
+          "Business Analyst",
+          "Auditor",
+          "Tax Consultant",
+          "Finance Manager",
+        ],
+        politicalscience: [
+          "Diplomat",
+          "Civil Servant",
+          "Political Analyst",
+          "Policy Maker",
+          "Legislative Aide",
+        ],
+        philosophy: [
+          "Professor",
+          "Ethicist",
+          "Think Tank Researcher",
+          "Writer",
+          "Critic",
+        ],
+        entrepreneurship: [
+          "Startup Founder",
+          "Product Manager",
+          "Growth Hacker",
+          "Business Consultant",
+          "Innovation Strategist",
+        ],
+        marketing: [
+          "Digital Marketer",
+          "SEO Specialist",
+          "Content Marketer",
+          "Marketing Analyst",
+          "Social Media Manager",
+        ],
+        journalism: [
+          "News Reporter",
+          "Editor",
+          "Photojournalist",
+          "News Anchor",
+          "Investigative Journalist",
+        ],
+        ai: [
+          "Machine Learning Engineer",
+          "NLP Engineer",
+          "AI Product Manager",
+          "Computer Vision Engineer",
+          "Research Scientist (AI)",
+        ],
+      };
+
+      function suggestCareers() {
+        const input = document
+          .getElementById("subjectInput")
+          .value.toLowerCase();
+        const subjects = input.split(",").map((s) => s.trim());
+        const output = document.getElementById("results");
+        output.innerHTML = "";
+
+        const suggested = new Set();
+        subjects.forEach((subject) => {
+          if (data[subject]) {
+            data[subject].forEach((career) => {
+              if (!suggested.has(career)) {
+                suggested.add(career);
+                output.innerHTML += `
+                <div class="bg-white dark:bg-gray-700 p-5 rounded-xl shadow-md border-l-4 border-blue-500 hover:scale-105 transition duration-300">
+                  <h4 class="text-xl font-semibold text-blue-700 dark:text-yellow-300">${career}</h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-300">Based on: ${
+                    subject.charAt(0).toUpperCase() + subject.slice(1)
+                  }</p>
+                </div>`;
+              }
+            });
+          }
+        });
+
+        if (suggested.size === 0) {
+          output.innerHTML =
+            '<p class="text-red-500 dark:text-red-400">No matches found. Try more common subjects.</p>';
+        }
+      }
+    </script>
+  </body>
+</html>
